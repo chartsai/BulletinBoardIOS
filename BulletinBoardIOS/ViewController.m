@@ -210,10 +210,10 @@
 - (IBAction)messagePan:(UIPanGestureRecognizer *)sender {
     if (_readyToSend) {
         if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
-            if (_messageView.frame.origin.y < -50) {
+            if (_messageView.frame.origin.y < -100 || [sender velocityInView:self.view].y < -5000) {
                 [self sendMessageToServer:_messageView.textView.text];
                 POPDecayAnimation *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionY];
-                anim.velocity = @(-3000.);
+                anim.velocity = @([sender velocityInView:self.view].y);
                 [_messageView pop_addAnimation:anim forKey:@"slide"];
             } else {
                 [UIView animateWithDuration:0.3 animations:^{
@@ -232,10 +232,12 @@
 
 - (void)sendCompleteAnimation {
     [_addBtn backInit];
-    [_messageView pop_removeAnimationForKey:@"slide"];
-    [_messageView setTransform:CGAffineTransformIdentity];
-    [_messageView setAlpha:0.0];
-    [_messageView.textView setText:@""];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_messageView pop_removeAnimationForKey:@"slide"];
+        [_messageView setTransform:CGAffineTransformIdentity];
+        [_messageView setAlpha:0.0];
+        [_messageView.textView setText:@""];
+    });
 }
 - (void)sendFailAniamtion {
     dispatch_async(dispatch_get_main_queue(), ^{
