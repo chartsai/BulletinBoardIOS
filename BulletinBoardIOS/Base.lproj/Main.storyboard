@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,22 +19,91 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6E-TT-yBD">
-                                <rect key="frame" x="282" y="285" width="36" height="30"/>
-                                <state key="normal" title="Send"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6E-TT-yBD" customClass="AddBtn">
+                                <rect key="frame" x="250" y="250" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.61176470588235299" green="0.80000000000000004" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="9Dw-df-9zF"/>
+                                    <constraint firstAttribute="width" constant="100" id="Sk2-uo-UzE"/>
+                                </constraints>
                                 <connections>
-                                    <action selector="send:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5BA-Gz-tuf"/>
+                                    <action selector="addMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rWT-FE-cS7"/>
                                 </connections>
                             </button>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2D-6E-19f" customClass="MessageView">
+                                <rect key="frame" x="60" y="60" width="480" height="480"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTY-YQ-GDA">
+                                        <rect key="frame" x="24" y="24" width="432" height="432"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0u-Se-a4G">
+                                        <rect key="frame" x="24" y="442" width="30" height="30"/>
+                                        <state key="normal" title="取消">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="T2D-6E-19f" eventType="touchUpInside" id="QZ3-oD-HmR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.61176470589999998" green="0.80000000000000004" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="KTY-YQ-GDA" firstAttribute="centerX" secondItem="T2D-6E-19f" secondAttribute="centerX" id="4Dl-yp-0De"/>
+                                    <constraint firstAttribute="width" secondItem="T2D-6E-19f" secondAttribute="height" multiplier="1:1" id="5ab-jQ-Kg7"/>
+                                    <constraint firstItem="KTY-YQ-GDA" firstAttribute="height" secondItem="T2D-6E-19f" secondAttribute="height" multiplier="0.9" id="WOa-1f-cJ2"/>
+                                    <constraint firstItem="KTY-YQ-GDA" firstAttribute="centerY" secondItem="T2D-6E-19f" secondAttribute="centerY" id="Xhq-Ba-uAL"/>
+                                    <constraint firstItem="KTY-YQ-GDA" firstAttribute="width" secondItem="T2D-6E-19f" secondAttribute="width" multiplier="0.9" id="hQX-YH-h94"/>
+                                    <constraint firstItem="t0u-Se-a4G" firstAttribute="leading" secondItem="T2D-6E-19f" secondAttribute="leading" constant="24" id="m91-ZS-dc4"/>
+                                    <constraint firstAttribute="bottom" secondItem="t0u-Se-a4G" secondAttribute="bottom" constant="8" id="tc6-2s-4BW"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="textView" destination="KTY-YQ-GDA" id="iKh-ot-9gB"/>
+                                    <outletCollection property="gestureRecognizers" destination="qZS-Zc-56A" appends="YES" id="xOO-Tx-6i0"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="p6E-TT-yBD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2LO-AJ-NOg"/>
+                            <constraint firstItem="T2D-6E-19f" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HFm-a6-sNn"/>
+                            <constraint firstItem="T2D-6E-19f" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jvk-5m-Oaf"/>
+                            <constraint firstItem="p6E-TT-yBD" firstAttribute="centerX" secondItem="T2D-6E-19f" secondAttribute="centerX" id="Yox-MO-LuD"/>
+                            <constraint firstItem="T2D-6E-19f" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="cjj-MR-ih8"/>
+                            <constraint firstItem="T2D-6E-19f" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="jc0-9K-Fq6"/>
                             <constraint firstItem="p6E-TT-yBD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pz3-Fw-6D6"/>
+                            <constraint firstItem="p6E-TT-yBD" firstAttribute="centerY" secondItem="T2D-6E-19f" secondAttribute="centerY" id="xJz-IW-udb"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Jvk-5m-Oaf"/>
+                                <exclude reference="2LO-AJ-NOg"/>
+                                <exclude reference="pz3-Fw-6D6"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Z5f-ml-07a" appends="YES" id="pRh-Vo-TNZ"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="addBtn" destination="p6E-TT-yBD" id="4pN-m2-rXT"/>
+                        <outlet property="messageView" destination="T2D-6E-19f" id="FZX-Pn-cHu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Z5f-ml-07a">
+                    <connections>
+                        <action selector="tap:" destination="BYZ-38-t0r" id="HfA-j8-uvq"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="qZS-Zc-56A">
+                    <connections>
+                        <action selector="messagePan:" destination="BYZ-38-t0r" id="GNb-nU-Ogn"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
         </scene>
     </scenes>

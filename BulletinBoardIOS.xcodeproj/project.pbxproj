@@ -13,6 +13,8 @@
 		C9ABB5FD1C2EB30400487BB8 /* ProgressObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB5F81C2EB30400487BB8 /* ProgressObserver.m */; };
 		C9ABB5FE1C2EB30400487BB8 /* SessionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB5FA1C2EB30400487BB8 /* SessionContainer.m */; };
 		C9ABB5FF1C2EB30400487BB8 /* Transcript.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB5FC1C2EB30400487BB8 /* Transcript.m */; };
+		C9ABB6031C2EC54000487BB8 /* AddBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB6021C2EC54000487BB8 /* AddBtn.m */; };
+		C9ABB6071C2ECE7F00487BB8 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB6061C2ECE7F00487BB8 /* MessageView.m */; };
 		EDDED1DD1C2EAAD4003F896F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDED1DC1C2EAAD4003F896F /* main.m */; };
 		EDDED1E01C2EAAD4003F896F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDED1DF1C2EAAD4003F896F /* AppDelegate.m */; };
 		EDDED1E31C2EAAD4003F896F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDED1E21C2EAAD4003F896F /* ViewController.m */; };
@@ -55,6 +57,10 @@
 		C9ABB5FA1C2EB30400487BB8 /* SessionContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionContainer.m; path = MultipeerModel/SessionContainer.m; sourceTree = "<group>"; };
 		C9ABB5FB1C2EB30400487BB8 /* Transcript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transcript.h; path = MultipeerModel/Transcript.h; sourceTree = "<group>"; };
 		C9ABB5FC1C2EB30400487BB8 /* Transcript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transcript.m; path = MultipeerModel/Transcript.m; sourceTree = "<group>"; };
+		C9ABB6011C2EC54000487BB8 /* AddBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBtn.h; path = CustomView/AddBtn/AddBtn.h; sourceTree = "<group>"; };
+		C9ABB6021C2EC54000487BB8 /* AddBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBtn.m; path = CustomView/AddBtn/AddBtn.m; sourceTree = "<group>"; };
+		C9ABB6051C2ECE7F00487BB8 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageView.h; path = CustomView/TextView/MessageView.h; sourceTree = "<group>"; };
+		C9ABB6061C2ECE7F00487BB8 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageView.m; path = CustomView/TextView/MessageView.m; sourceTree = "<group>"; };
 		EDDED1D81C2EAAD4003F896F /* BulletinBoardIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BulletinBoardIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDDED1DC1C2EAAD4003F896F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EDDED1DE1C2EAAD4003F896F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -120,6 +126,8 @@
 		C9ABB5EF1C2EAFC200487BB8 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				C9ABB6041C2ECE6400487BB8 /* TextView */,
+				C9ABB6001C2EC51D00487BB8 /* AddBtn */,
 				C9ABB5F01C2EAFF900487BB8 /* Alert */,
 			);
 			name = CustomView;
@@ -146,6 +154,24 @@
 				C9ABB5FC1C2EB30400487BB8 /* Transcript.m */,
 			);
 			name = MultipeerModel;
+			sourceTree = "<group>";
+		};
+		C9ABB6001C2EC51D00487BB8 /* AddBtn */ = {
+			isa = PBXGroup;
+			children = (
+				C9ABB6011C2EC54000487BB8 /* AddBtn.h */,
+				C9ABB6021C2EC54000487BB8 /* AddBtn.m */,
+			);
+			name = AddBtn;
+			sourceTree = "<group>";
+		};
+		C9ABB6041C2ECE6400487BB8 /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				C9ABB6051C2ECE7F00487BB8 /* MessageView.h */,
+				C9ABB6061C2ECE7F00487BB8 /* MessageView.m */,
+			);
+			name = TextView;
 			sourceTree = "<group>";
 		};
 		EDDED1CF1C2EAAD4003F896F = {
@@ -397,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9ABB6031C2EC54000487BB8 /* AddBtn.m in Sources */,
 				EDDED1E31C2EAAD4003F896F /* ViewController.m in Sources */,
 				C9ABB5F41C2EB00500487BB8 /* CheckAlert.m in Sources */,
 				C9ABB5FE1C2EB30400487BB8 /* SessionContainer.m in Sources */,
@@ -404,6 +431,7 @@
 				EDDED1E01C2EAAD4003F896F /* AppDelegate.m in Sources */,
 				EDDED1DD1C2EAAD4003F896F /* main.m in Sources */,
 				C9ABB5FF1C2EB30400487BB8 /* Transcript.m in Sources */,
+				C9ABB6071C2ECE7F00487BB8 /* MessageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

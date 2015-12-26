@@ -10,6 +10,8 @@
 #define server_name @"server"
 #import "ViewController.h"
 #import "CheckAlert.h"
+#import "AddBtn.h"
+#import "POP.h"
 
 @interface ViewController () {
 }
@@ -19,6 +21,9 @@
 @property (retain, nonatomic) NSMutableArray *transcripts;
 // Map of resource names to transcripts array index
 @property (retain, nonatomic) NSMutableDictionary *imageNameIndex;
+
+@property (weak, nonatomic) IBOutlet AddBtn *addBtn;
+@property (weak, nonatomic) IBOutlet MessageView *messageView;
 @end
 
 @implementation ViewController
@@ -74,6 +79,9 @@
 }
 
 - (void)commonInit {
+    [_messageView setDelegate:self];
+    [_messageView.textView setDelegate:self];
+
     // Init transcripts array to use as table view data source
     _transcripts = [NSMutableArray new];
     _imageNameIndex = [NSMutableDictionary new];
@@ -98,13 +106,16 @@
 }
 
 // Check if there is any message to send
-- (void)sendMessage:(NSString *)message {
+- (void)sendMessageToServer:(NSString *)message {
     // Send the message
     Transcript *transcript = [self.sessionContainer sendMessage:message];
 
     if (transcript) {
         // Add the transcript to the table view data source and reload
         [self insertTranscript:transcript];
+        [self sendCompleteAnimation];
+    } else {
+        [self sendFailAniamtion];
     }
 }
 
@@ -172,9 +183,66 @@
     [browserViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - IBAction
-- (IBAction)send:(id)sender {
-    [self sendMessage:@"yo"];
+#pragma makr - MessageDelegate
+- (void)sendMessage:(NSString *)messageString {
+    [self sendMessageToServer:messageString];
+}
+- (void)cancel {
+    [_addBtn backInit];
 }
 
+#pragma mark - TextViewDelegate
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [self setReadyToSend:NO];
+}
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self setReadyToSend:YES];
+}
+
+#pragma mark - IBAction
+- (IBAction)addMessage:(id)sender {
+    [_addBtn fadeAnimation];
+    [_messageView fadeIn];
+}
+- (IBAction)tap:(id)sender {
+    [self.view endEditing:YES];
+}
+- (IBAction)messagePan:(UIPanGestureRecognizer *)sender {
+    if (_readyToSend) {
+        if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
+            if (_messageView.frame.origin.y < -50) {
+                [self sendMessageToServer:_messageView.textView.text];
+                POPDecayAnimation *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+                anim.velocity = @(-3000.);
+                [_messageView pop_addAnimation:anim forKey:@"slide"];
+            } else {
+                [UIView animateWithDuration:0.3 animations:^{
+                    [_messageView setTransform:CGAffineTransformIdentity];
+                }];
+            }
+        } else {
+            CGPoint p = [sender translationInView:self.view];
+            CGAffineTransform transform = CGAffineTransformIdentity;
+            transform = CGAffineTransformRotate(transform, p.x / CGRectGetWidth(_messageView.frame) * M_1_PI / 1);
+            transform = CGAffineTransformTranslate(transform, p.x, p.y);
+            [_messageView setTransform:transform];
+        }
+    }
+}
+
+- (void)sendCompleteAnimation {
+    [_addBtn backInit];
+    [_messageView pop_removeAnimationForKey:@"slide"];
+    [_messageView setTransform:CGAffineTransformIdentity];
+    [_messageView setAlpha:0.0];
+    [_messageView.textView setText:@""];
+}
+- (void)sendFailAniamtion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_messageView pop_removeAnimationForKey:@"slide"];
+        [UIView animateWithDuration:0.3 animations:^{
+            [_messageView setTransform:CGAffineTransformIdentity];
+        }];
+    });
+}
 @end

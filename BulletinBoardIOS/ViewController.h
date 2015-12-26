@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SessionContainer.h"
+#import "MessageView.h"
 #import "Transcript.h"
 
 @protocol SettingsDelegate <NSObject>
@@ -16,8 +17,9 @@
 
 @end
 
-@interface ViewController : UIViewController <SessionContainerDelegate, MCBrowserViewControllerDelegate>
+@interface ViewController : UIViewController <SessionContainerDelegate, MCBrowserViewControllerDelegate, MessageDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) id<SettingsDelegate> delegate;
+@property (nonatomic) BOOL readyToSend;
 @end
 
