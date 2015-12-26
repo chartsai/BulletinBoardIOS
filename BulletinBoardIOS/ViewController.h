@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SessionContainer.h"
+#import "Transcript.h"
 
-@interface ViewController : UIViewController
+@protocol SettingsDelegate <NSObject>
 
+- (void)controllerDidCreateChatRoomWithDisplayName:(NSString *)displayName serviceType:(NSString *)serviceType;
 
+@end
+
+@interface ViewController : UIViewController <SessionContainerDelegate, MCBrowserViewControllerDelegate>
+
+@property (weak, nonatomic) id<SettingsDelegate> delegate;
 @end
 
