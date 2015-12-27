@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -64,15 +65,42 @@
                                     <outletCollection property="gestureRecognizers" destination="qZS-Zc-56A" appends="YES" id="xOO-Tx-6i0"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jy3-0p-yUG" userLabel="DownloadButton" customClass="DownloadBtn">
+                                <rect key="frame" x="250" y="450" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.39215686274509803" green="0.70980392156862748" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="F05-kP-avx"/>
+                                    <constraint firstAttribute="height" constant="100" id="QEy-sP-iWF"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="downloadHistoryMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oLy-5d-XcA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hss-0n-VOp">
+                                <rect key="frame" x="50" y="520" width="30" height="30"/>
+                                <state key="normal" title="取消">
+                                    <color key="titleColor" red="0.3921568627" green="0.70980392160000005" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="downloadCancel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rIN-RE-tVn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="p6E-TT-yBD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2LO-AJ-NOg"/>
+                            <constraint firstItem="jy3-0p-yUG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8ac-1r-7rL"/>
+                            <constraint firstItem="jy3-0p-yUG" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="G30-O1-8f3"/>
+                            <constraint firstItem="jy3-0p-yUG" firstAttribute="top" secondItem="p6E-TT-yBD" secondAttribute="bottom" constant="100" id="GlI-qL-ke8"/>
                             <constraint firstItem="T2D-6E-19f" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HFm-a6-sNn"/>
                             <constraint firstItem="T2D-6E-19f" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jvk-5m-Oaf"/>
+                            <constraint firstItem="jy3-0p-yUG" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="Pud-iX-Gkn"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jy3-0p-yUG" secondAttribute="bottom" constant="50" id="VRC-Is-wzy"/>
                             <constraint firstItem="p6E-TT-yBD" firstAttribute="centerX" secondItem="T2D-6E-19f" secondAttribute="centerX" id="Yox-MO-LuD"/>
                             <constraint firstItem="T2D-6E-19f" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="cjj-MR-ih8"/>
+                            <constraint firstItem="hss-0n-VOp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="dOz-Vx-agx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hss-0n-VOp" secondAttribute="bottom" constant="50" id="hha-VV-YoU"/>
                             <constraint firstItem="T2D-6E-19f" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="jc0-9K-Fq6"/>
                             <constraint firstItem="p6E-TT-yBD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pz3-Fw-6D6"/>
                             <constraint firstItem="p6E-TT-yBD" firstAttribute="centerY" secondItem="T2D-6E-19f" secondAttribute="centerY" id="xJz-IW-udb"/>
@@ -82,6 +110,9 @@
                                 <exclude reference="Jvk-5m-Oaf"/>
                                 <exclude reference="2LO-AJ-NOg"/>
                                 <exclude reference="pz3-Fw-6D6"/>
+                                <exclude reference="G30-O1-8f3"/>
+                                <exclude reference="Pud-iX-Gkn"/>
+                                <exclude reference="VRC-Is-wzy"/>
                             </mask>
                         </variation>
                         <connections>
@@ -90,6 +121,8 @@
                     </view>
                     <connections>
                         <outlet property="addBtn" destination="p6E-TT-yBD" id="4pN-m2-rXT"/>
+                        <outlet property="downloadBtn" destination="jy3-0p-yUG" id="J30-f6-B7T"/>
+                        <outlet property="downloadCancelBtn" destination="hss-0n-VOp" id="c0B-2y-sgq"/>
                         <outlet property="messageView" destination="T2D-6E-19f" id="FZX-Pn-cHu"/>
                     </connections>
                 </viewController>

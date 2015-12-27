@@ -15,6 +15,9 @@
 		C9ABB5FF1C2EB30400487BB8 /* Transcript.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB5FC1C2EB30400487BB8 /* Transcript.m */; };
 		C9ABB6031C2EC54000487BB8 /* AddBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB6021C2EC54000487BB8 /* AddBtn.m */; };
 		C9ABB6071C2ECE7F00487BB8 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB6061C2ECE7F00487BB8 /* MessageView.m */; };
+		C9ABB6221C2F6A8200487BB8 /* TextNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB6211C2F6A8200487BB8 /* TextNoteView.m */; };
+		C9ABB6261C2F6EA500487BB8 /* DownloadBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB6251C2F6EA500487BB8 /* DownloadBtn.m */; };
+		C9ABB6291C2F751D00487BB8 /* NoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ABB6281C2F751D00487BB8 /* NoteView.m */; };
 		EDDED1DD1C2EAAD4003F896F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDED1DC1C2EAAD4003F896F /* main.m */; };
 		EDDED1E01C2EAAD4003F896F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDED1DF1C2EAAD4003F896F /* AppDelegate.m */; };
 		EDDED1E31C2EAAD4003F896F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDED1E21C2EAAD4003F896F /* ViewController.m */; };
@@ -61,6 +64,12 @@
 		C9ABB6021C2EC54000487BB8 /* AddBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBtn.m; path = CustomView/AddBtn/AddBtn.m; sourceTree = "<group>"; };
 		C9ABB6051C2ECE7F00487BB8 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageView.h; path = CustomView/TextView/MessageView.h; sourceTree = "<group>"; };
 		C9ABB6061C2ECE7F00487BB8 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageView.m; path = CustomView/TextView/MessageView.m; sourceTree = "<group>"; };
+		C9ABB6201C2F6A8200487BB8 /* TextNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextNoteView.h; path = CustomView/TextNote/TextNoteView.h; sourceTree = "<group>"; };
+		C9ABB6211C2F6A8200487BB8 /* TextNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextNoteView.m; path = CustomView/TextNote/TextNoteView.m; sourceTree = "<group>"; };
+		C9ABB6241C2F6EA500487BB8 /* DownloadBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadBtn.h; path = CustomView/DownloadBtn/DownloadBtn.h; sourceTree = "<group>"; };
+		C9ABB6251C2F6EA500487BB8 /* DownloadBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DownloadBtn.m; path = CustomView/DownloadBtn/DownloadBtn.m; sourceTree = "<group>"; };
+		C9ABB6271C2F751D00487BB8 /* NoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteView.h; path = CustomView/TextNote/NoteView.h; sourceTree = "<group>"; };
+		C9ABB6281C2F751D00487BB8 /* NoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteView.m; path = CustomView/TextNote/NoteView.m; sourceTree = "<group>"; };
 		EDDED1D81C2EAAD4003F896F /* BulletinBoardIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BulletinBoardIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDDED1DC1C2EAAD4003F896F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EDDED1DE1C2EAAD4003F896F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -126,8 +135,10 @@
 		C9ABB5EF1C2EAFC200487BB8 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				C9ABB6041C2ECE6400487BB8 /* TextView */,
 				C9ABB6001C2EC51D00487BB8 /* AddBtn */,
+				C9ABB6231C2F6E8400487BB8 /* DownloadBtn */,
+				C9ABB61F1C2F6A5F00487BB8 /* TextNote */,
+				C9ABB6041C2ECE6400487BB8 /* TextView */,
 				C9ABB5F01C2EAFF900487BB8 /* Alert */,
 			);
 			name = CustomView;
@@ -172,6 +183,26 @@
 				C9ABB6061C2ECE7F00487BB8 /* MessageView.m */,
 			);
 			name = TextView;
+			sourceTree = "<group>";
+		};
+		C9ABB61F1C2F6A5F00487BB8 /* TextNote */ = {
+			isa = PBXGroup;
+			children = (
+				C9ABB6201C2F6A8200487BB8 /* TextNoteView.h */,
+				C9ABB6211C2F6A8200487BB8 /* TextNoteView.m */,
+				C9ABB6271C2F751D00487BB8 /* NoteView.h */,
+				C9ABB6281C2F751D00487BB8 /* NoteView.m */,
+			);
+			name = TextNote;
+			sourceTree = "<group>";
+		};
+		C9ABB6231C2F6E8400487BB8 /* DownloadBtn */ = {
+			isa = PBXGroup;
+			children = (
+				C9ABB6241C2F6EA500487BB8 /* DownloadBtn.h */,
+				C9ABB6251C2F6EA500487BB8 /* DownloadBtn.m */,
+			);
+			name = DownloadBtn;
 			sourceTree = "<group>";
 		};
 		EDDED1CF1C2EAAD4003F896F = {
@@ -311,6 +342,7 @@
 				TargetAttributes = {
 					EDDED1D71C2EAAD4003F896F = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = SGW9NZTF78;
 					};
 					EDDED1F01C2EAAD4003F896F = {
 						CreatedOnToolsVersion = 7.2;
@@ -424,13 +456,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9ABB6031C2EC54000487BB8 /* AddBtn.m in Sources */,
+				C9ABB6221C2F6A8200487BB8 /* TextNoteView.m in Sources */,
 				EDDED1E31C2EAAD4003F896F /* ViewController.m in Sources */,
 				C9ABB5F41C2EB00500487BB8 /* CheckAlert.m in Sources */,
 				C9ABB5FE1C2EB30400487BB8 /* SessionContainer.m in Sources */,
+				C9ABB6261C2F6EA500487BB8 /* DownloadBtn.m in Sources */,
 				C9ABB5FD1C2EB30400487BB8 /* ProgressObserver.m in Sources */,
 				EDDED1E01C2EAAD4003F896F /* AppDelegate.m in Sources */,
 				EDDED1DD1C2EAAD4003F896F /* main.m in Sources */,
 				C9ABB5FF1C2EB30400487BB8 /* Transcript.m in Sources */,
+				C9ABB6291C2F751D00487BB8 /* NoteView.m in Sources */,
 				C9ABB6071C2ECE7F00487BB8 /* MessageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,7 +608,9 @@
 			baseConfigurationReference = 94C688F00FC87AECA69B0D55 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BulletinBoardIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.bulletinboard.ios.BulletinBoardIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -585,7 +622,9 @@
 			baseConfigurationReference = A750D6BE21B46CB68823627F /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BulletinBoardIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.bulletinboard.ios.BulletinBoardIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

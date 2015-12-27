@@ -6,11 +6,15 @@
 //  Copyright © 2015年 bulletin board. All rights reserved.
 //
 
-#define client_name @"client"
+#define client_name [NSString stringWithFormat:@"client%@", [[UIDevice currentDevice] name]]
 #define server_name @"server"
+#define server_display_name @"host"
 #import "ViewController.h"
 #import "CheckAlert.h"
 #import "AddBtn.h"
+#import "DownloadBtn.h"
+#import "TextNoteView.h"
+#import "NoteView.h"
 #import "POP.h"
 
 @interface ViewController () {
@@ -24,15 +28,24 @@
 
 @property (weak, nonatomic) IBOutlet AddBtn *addBtn;
 @property (weak, nonatomic) IBOutlet MessageView *messageView;
+@property (weak, nonatomic) IBOutlet DownloadBtn *downloadBtn;
+@property (weak, nonatomic) IBOutlet UIButton *downloadCancelBtn;
+
+@property (nonatomic) NSMutableArray *noteViewArray;
+@property (nonatomic) NSMutableArray *historyArray;
+@property (nonatomic) NSMutableArray *historyTimeArray;
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    CGAffineTransform noteTransorm;
+}
 
 #pragma mark - LifeCycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self commonInit];
+    NSLog(@"server name : %@, client name : %@", server_name, client_name);
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -79,6 +92,9 @@
 }
 
 - (void)commonInit {
+    _historyArray = [[NSMutableArray alloc] init];
+    _historyTimeArray = [[NSMutableArray alloc] init];
+    _noteViewArray = [[NSMutableArray alloc] init];
     [_messageView setDelegate:self];
     [_messageView.textView setDelegate:self];
 
@@ -88,9 +104,6 @@
 
     if ([self isDisplayNameAndServiceTypeValid:client_name serviceName:server_name]) {
         [self createSession];
-//        if (_delegate) {
-//            [_delegate controllerDidCreateChatRoomWithDisplayName:@"client" serviceType:@"server"];
-//        }
     }
     else {
         CheckAlert *alert = [CheckAlert alertWithTitle:@"ERROR" content:@"" handler:nil];
@@ -111,6 +124,12 @@
     Transcript *transcript = [self.sessionContainer sendMessage:message];
 
     if (transcript) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+
+        [_historyArray addObject:message];
+        [_historyTimeArray addObject:[dateFormatter stringFromDate:[NSDate date]]];
+
         // Add the transcript to the table view data source and reload
         [self insertTranscript:transcript];
         [self sendCompleteAnimation];
@@ -124,10 +143,19 @@
 - (void)insertTranscript:(Transcript *)transcript {
     // Add to the data source
     [_transcripts addObject:transcript];
-    NSLog(@"received %@", transcript.message);
+    NSLog(@"received : %@ from %@", transcript.message, transcript.peerID.displayName);
+//    if (![transcript.peerID.displayName isEqualToString:client_name] &&
+//        ![transcript.peerID.displayName isEqualToString:server_name] &&
+//        ![transcript.peerID.displayName isEqualToString:server_display_name]) {
+//        [_historyArray addObject:transcript.message];
+//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//        [_historyTimeArray addObject:[dateFormatter stringFromDate:[NSDate date]]];
+//    }
 
     // If this is a progress transcript add it's index to the map with image name as the key
     if (nil != transcript.progress) {
+
         NSNumber *transcriptIndex = [NSNumber numberWithUnsignedLong:(_transcripts.count - 1)];
         [_imageNameIndex setObject:transcriptIndex forKey:transcript.imageName];
     }
@@ -189,6 +217,7 @@
 }
 - (void)cancel {
     [_addBtn backInit];
+    [_downloadBtn backInit];
 }
 
 #pragma mark - TextViewDelegate
@@ -201,6 +230,7 @@
 
 #pragma mark - IBAction
 - (IBAction)addMessage:(id)sender {
+    [_downloadBtn fadeAnimation];
     [_addBtn fadeAnimation];
     [_messageView fadeIn];
 }
@@ -229,9 +259,51 @@
         }
     }
 }
+- (IBAction)downloadHistoryMessage:(id)sender {
+    [self startDownlaod];
+    [_downloadBtn fadeAnimation];
+    [_addBtn fadeAnimation];
+    [UIView animateWithDuration:0.3 animations:^{
+        [_downloadCancelBtn setAlpha:1.0];
+    }];
+}
+- (IBAction)downloadCancel:(id)sender {
+    [_noteViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
+    [_noteViewArray removeAllObjects];
+    [_addBtn backInit];
+    [_downloadBtn backInit];
+    [UIView animateWithDuration:0.3 animations:^{
+        [_downloadCancelBtn setAlpha:0.0];
+    }];
+}
 
+- (IBAction)noteViewPan:(UIPanGestureRecognizer *)sender {
+    UIView *targetView = sender.view;
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        noteTransorm = targetView.transform;
+    }
+    if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
+        POPDecayAnimation *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+        anim.velocity = @([sender velocityInView:self.view].x);
+        [targetView pop_addAnimation:anim forKey:@"slide"];
+        POPDecayAnimation *anim2 = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+        anim2.velocity = @([sender velocityInView:self.view].y);
+        [targetView pop_addAnimation:anim2 forKey:@"slide2"];
+    } else {
+        CGPoint p = [sender translationInView:self.view];
+        CGAffineTransform transform = noteTransorm;
+        transform = CGAffineTransformRotate(transform, p.x / CGRectGetWidth(self.view.frame) * M_1_PI / 1);
+        transform = CGAffineTransformTranslate(transform, p.x, p.y);
+        [targetView setTransform:transform];
+    }
+}
+
+#pragma mark - Animation
 - (void)sendCompleteAnimation {
     [_addBtn backInit];
+    [_downloadBtn backInit];
     dispatch_async(dispatch_get_main_queue(), ^{
         [_messageView pop_removeAnimationForKey:@"slide"];
         [_messageView setTransform:CGAffineTransformIdentity];
@@ -247,4 +319,32 @@
         }];
     });
 }
+
+#pragma mark - Download History Message
+- (void)startDownlaod {
+    NSInteger totalMessage = [_historyArray count];
+    for (int i = 0; i < totalMessage; i++) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((totalMessage - i) * 0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self addNoteMessage:[NSString stringWithFormat:@"%@\n\n\n\n%@", [_historyArray objectAtIndex:i], [_historyTimeArray objectAtIndex:i]] index:i];
+        });
+    }
+}
+- (void)addNoteMessage:(NSString *)string index:(int)i {
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    transform = CGAffineTransformRotate(transform, i * M_2_PI);
+    transform = CGAffineTransformTranslate(transform, 300, -200);
+
+    CGFloat noteWidth = self.view.frame.size.width * 0.8;
+    NoteView *textView = [[NoteView alloc] initWithFrame:CGRectMake(noteWidth / 8, 150, noteWidth, noteWidth * 73/80)];
+    [textView setTransform:transform];
+    [textView setTextString:string];
+    [self.view addSubview:textView];
+    [_noteViewArray addObject:textView];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(noteViewPan:)];
+    [textView addGestureRecognizer:panGesture];
+    [UIView animateWithDuration:0.3 animations:^{
+        [textView setTransform:CGAffineTransformRotate(CGAffineTransformIdentity, i * M_1_PI / 2)];
+    }];
+}
+
 @end

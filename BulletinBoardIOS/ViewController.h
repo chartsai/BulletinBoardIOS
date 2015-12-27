@@ -11,15 +11,8 @@
 #import "MessageView.h"
 #import "Transcript.h"
 
-@protocol SettingsDelegate <NSObject>
-
-- (void)controllerDidCreateChatRoomWithDisplayName:(NSString *)displayName serviceType:(NSString *)serviceType;
-
-@end
-
 @interface ViewController : UIViewController <SessionContainerDelegate, MCBrowserViewControllerDelegate, MessageDelegate, UITextViewDelegate>
 
-@property (weak, nonatomic) id<SettingsDelegate> delegate;
 @property (nonatomic) BOOL readyToSend;
 @end
 

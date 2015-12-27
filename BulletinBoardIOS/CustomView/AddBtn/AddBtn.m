@@ -75,14 +75,6 @@
     [crossPath moveToPoint:CGPointMake((CGRectGetWidth(rect)) / 2, lineWith * 2)];
     [crossPath addLineToPoint:CGPointMake((CGRectGetWidth(rect)) / 2, CGRectGetHeight(rect) - lineWith * 2)];
 
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    shapeLayer.fillColor = [[UIColor clearColor] CGColor];
-    shapeLayer.lineWidth = lineWith;
-    shapeLayer.lineJoin = kCALineJoinRound;
-    shapeLayer.lineCap = kCALineCapRound;
-    shapeLayer.strokeEnd = 0.f;
-    shapeLayer.path = crossPath.CGPath;
-
     CGContextSetLineWidth(context, lineWith);
     CGContextSetLineJoin(context, kCGLineJoinRound);
     CGContextSetLineCap(context, kCGLineCapRound);
